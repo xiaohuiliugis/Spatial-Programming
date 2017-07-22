@@ -1,14 +1,16 @@
-myd = { "George": 39, "April": 37, "Lloyd": 35 }
 
-#Small cities Dictionary
-Cites = {"Hattiesburg": {"Population" : 50000, "Area": 300}}
+import arcpy
 
-k = myd.keys()
+rows = arcpy.da.SearchCursor(r"C:\Xiaohui\Spatial Programming\w7\w7data\data\GPS_points.shp", ["animal","SHAPE@XY"])
 
-k.sort()
+total =0
+count =0
+for row in rows:
+    print row[0],type(row[1])
+    total+=row[0]
+    
+    count +=1
 
-print k
+print total, count, total/count
 
-for x in k:
-    print x, myd[x]
 

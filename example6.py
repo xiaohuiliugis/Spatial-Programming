@@ -1,13 +1,11 @@
 
+import arcpy
 
-f = open(r"C:\courses\spa\week4\citiesSmall.txt", "r")
+rows = arcpy.da.SearchCursor(r"C:\Xiaohui\Spatial Programming\w7\w7data\data\GPS_points.shp", ["animal","SHAPE@XY"], "Animal = 3")
 
-for line in f:
-    #print line.split(",")[0]
-    print line.strip()
+total =0
+count =0
+for row in rows:
+    print row[1].centroid.x
 
-#x = f.readline()
-#while x:
-#    x = f.readline()
-#    print x
 

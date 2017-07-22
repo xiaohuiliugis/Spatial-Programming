@@ -1,14 +1,11 @@
 
-class Point:
+import arcpy
 
-    def __init__(self, x = 0, y = 0):
-        self.x = float(x)
-        self.y = float(y)
+rows = arcpy.da.SearchCursor(r"C:\Xiaohui\Spatial Programming\w7\w7data\data\GPS_points.shp", ["animal","SHAPE@XY"], "Animal = 3")
 
-#Create a new instance of Class Point
-mypoint = Point()
-
-print mypoint.x, mypoint.y
-
+total =0
+count =0
+for row in rows:
+    print row[1]
 
 

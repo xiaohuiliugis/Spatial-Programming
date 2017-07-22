@@ -1,26 +1,20 @@
+import arcpy
 
+rows = arcpy.da.SearchCursor(r"C:\Xiaohui\Spatial Programming\w7\data\Parks.shp", ["Name", "SHAPE@"])
 
-f = open(r"C:\courses\spa\week4\cities.txt", "r")
-f2 = open(r"C:\courses\spa\week4\citiesSubset.txt", "w")
+rownumber =0
+for row in rows:
+    print row,row[0],row[1]
+    for partnumber in range(0,row[1].partCount):
+        print "Row: " + str(rownumber)
+        print "Part:" + str(partnumber)
 
-count = 1
-for line in f:
-    print line.strip()
-    count += 1
-    if (count % 100) == 0:
-        f2.write(line)
+        part = row[1].getPart(partnumber)
+        for pt in part:
+            print pt
+    rownumber +=1
 
-f.close()
-f2.close()
-
-#special char for new line
-
-print "\n"
-
-
-f = open(r"C:\courses\spa\week4\citiesthing.txt", "r")
-
-
-
+##    for pt in part:
+##        print pt.X
 
 
