@@ -1,19 +1,9 @@
-myd = { "George": 39, "April": 37, "Lloyd": 35 }
+import fiona
 
-#Small cities Dictionary
-Cites = {"Hattiesburg": {"Population" : 50000, "Area": 300}}
+c = fiona.open(r'C:\Xiaohui\Spatial Programming\w9\data\GPS_points.shp', 'r')
 
+print c.crs
+print c.schema
 
-def histogram(s):
-    d = dict()
-    for c in s:
-        if c not in d:
-            d[c] = 1
-        else:
-            d[c] += 1
-
-    return d
-
-print histogram("The quick brown fox jumps over the lazy dog!")
-
-
+for rec in c:
+    print rec

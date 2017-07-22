@@ -1,14 +1,28 @@
-myd = { "George": 39, "April": 37, "Lloyd": 35 }
 
-#Small cities Dictionary
-Cites = {"Hattiesburg": {"Population" : 50000, "Area": 300}}
+import fiona
+import shapely
+from shapely.geometry import shape, mapping
+c = fiona.open(r'C:\Xiaohui\Spatial Programming\w9\data\GPS_points.shp', 'r')
 
-k = myd.keys()
+outdiver = c.driver
+outschema = c.schema.copy()
+outcrs = c.crs.copy()
 
-k.sort()
+#w = fiona.open(r'C:\spa\data\GPS_buffers.shp', 'w', driver=outdiver, crs=outcrs, schema=outschema)
 
-print k
+#for rec in c:
+#   w.write(rec)
 
-for x in k:
-    print x, myd[x]
+#w.close()
+#c.close()
 
+outschema['geometry'] = 'Polygon'
+print outschema
+
+with fiona.open(r'C:\spa\data\GPS_buffers.shp', 'w', driver=outdiver, crs=outcrs, schema=outschema) as w:
+
+   for rec in c:
+      newgeo = shape(rec["geometry"]).buffer(100)
+      rec["geometry"] = mapping(newgeo)
+      w.write(rec)
+      pass
