@@ -1,14 +1,22 @@
-myd = { "George": 39, "April": 37, "Lloyd": 35 }
+import arcpy
+import numpy
 
-#Small cities Dictionary
-Cites = {"Hattiesburg": {"Population" : 50000, "Area": 300}}
+from arcpy.sa import *
 
-k = myd.keys()
 
-k.sort()
+arcpy.CheckOutExtension("Spatial")
+arcpy.env.workspace = r"C:\Xiaohui\Spatial Programming\w10\week10data\data\worldwidedata.gdb"
+outras = Plus("prec_1","prec_2")
 
-print k
+arr = arcpy.RasterToNumPyArray(Raster("prec_1"),nodata_to_value=0)
+arr2 = arcpy.RasterToNumPyArray(Raster("prec_2"),nodata_to_value=0)
+#arr.size gives the number of values in the array
 
-for x in k:
-    print x, myd[x]
+outarr = numpy.maximum(arr, arr2)
+
+myraster = arcpy.NumpyArraytToRaster(outarr)
+print arr, len(arr),arr.size,arr.shape
+
+
+
 
